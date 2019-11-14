@@ -40,7 +40,7 @@ https://github.com/0dp/generator-wp-bones
 * -**Download and Activate wordpress**-
 * -**Pick a starter theme** Bones-
 * -**Download starter theme**-
-* **Set up gulp file**
+* -**Set up gulp file**-
 * **Set up Sass structure and get it running**
 * **Git init**
 * **Set up CPT**
