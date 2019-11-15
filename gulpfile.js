@@ -7,7 +7,7 @@ let concat = require('gulp-concat')
 let uglify = require('gulp-uglify-es').default;
 let browserSync = require('browser-sync').create();
 
-// Syncing the browser with our project updates
+// Syncing the browser with our SASS project updates
 function reload(done) {
   browserSync.reload();
   done();
@@ -21,7 +21,7 @@ function serve(done) {
 }
 
 // Declare files as a variable rather than listing in function, then only have to change in one place, if you want to add another file and have more than one function accessing these files.
-let jsfiles = [];
+// let jsfiles = ['./library/js/*.js'];
 
 // Update sass files to style.css
 gulp.task('sass', function () {
@@ -45,23 +45,23 @@ gulp.task('style', gulp.series('sass', 'minify-css'))
 
 // Concatonate all files
 gulp.task('scripts', function () {
-    return gulp.src(jsfiles)
+    return gulp.src('./library/js/*.js')
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('./library/js/in-between/'));
+    .pipe(gulp.dest('./library/js/inbetween'));
 });
 
 // Minify JS
 gulp.task("uglify", function () {
-    return gulp.src("./library/js/in-between/all.js")
+    return gulp.src("./library/js/inbetween/all.js")
         .pipe(rename("all.min.js"))
         .pipe(uglify())
-        .pipe(gulp.dest("./library/js/in-between"));
+        .pipe(gulp.dest("./library/js/inbetween"));
 });
 
 // Combine both of the above functions
 gulp.task('minify-scripts', gulp.series('scripts', 'uglify'))
 
 // Watch constantly for changes and to the above functions when saving
-const watch = () => gulp.watch(['./library/scss/**/*.scss', './library/js/*.js'], gulp.series('style', 'minify-scripts', reload));
+const watch = () => gulp.watch(['./library/scss/**/*.scss', './library/js/**/*.js'], gulp.series('style', 'minify-scripts', reload));
 
 gulp.task('default', gulp.series(serve, watch)); // just run "gulp" or "gulp default"
